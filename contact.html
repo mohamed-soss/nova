@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Us - Hunter International</title>
+  
+  <!-- External dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- Apple Style CSS -->
+  <style>
+    /* ===== APPLE STYLE RESET & VARIABLES ===== */
+    :root {
+      /* Apple Color Palette */
+      --apple-blue: #0166FF;
+      --apple-dark-blue: #03045E;
+      --apple-light-blue: #0077B6;
+      --apple-black: #000000;
+      --apple-white: #FFFFFF;
+      --apple-gray-1: #F5F5F7;
+      --apple-gray-2: #D2D2D7;
+      --apple-gray-3: #86868B;
+      --apple-gray-4: #424245;
+      
+      /* Apple Spacing */
+      --section-spacing: 120px;
+      --container-padding: max(5vw, 20px);
+      
+      /* Apple Shadows */
+      --shadow-subtle: 0 4px 24px rgba(0, 0, 0, 0.04);
+      --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.08);
+      --shadow-floating: 0 16px 48px rgba(0, 0, 0, 0.12);
+      
+      /* Apple Transitions */
+      --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      color: var(--apple-black);
+      background: var(--apple-white);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    
+    /* ===== APPLE LOADER ===== */
+    .apple-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--apple-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    
+    .apple-loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    
+    .loader-content {
+      text-align: center;
+    }
+    
+    .loader-logo {
+      height: 60px;
+      width: auto;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeIn 0.8s ease 0.3s forwards;
+    }
+    
+    .loader-line {
+      width: 200px;
+      height: 2px;
+      background: var(--apple-gray-1);
+      border-radius: 1px;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+    
+    .loader-line::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--apple-blue), var(--apple-light-blue));
+      animation: loaderProgress 1.5s ease-in-out forwards;
+    }
+    
+    @keyframes loaderProgress {
+      to {
+        width: 100%;
+      }
+    }
+    
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    
+    /* ===== APPLE NAVBAR ===== */
+    .apple-navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      transition: var(--transition-smooth);
+      padding: 0.75rem 0;
+    }
+    
+    .apple-navbar.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: var(--shadow-subtle);
+    }
+    
+    .nav-logo {
+      height: 32px;
+      width: auto;
+      transition: var(--transition-smooth);
+    }
+    
+    .apple-nav-link {
+      color: var(--apple-black) !important;
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 0.5rem 1.25rem !important;
+      position: relative;
+      transition: var(--transition-smooth);
+    }
+    
+    .apple-nav-link:hover {
+      color: var(--apple-blue) !important;
+    }
+    
+    .navbar-toggler {
+      border: none;
+      padding: 0.5rem;
+      font-size: 1.25rem;
+    }
+    
+    .navbar-toggler:focus {
+      box-shadow: none;
+    }
+    
+    /* ===== APPLE VIDEO HERO SECTION ===== */
+    .apple-video-hero {
+      height: 100vh;
+      min-height: 800px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    
+    .hero-video-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      overflow: hidden;
+    }
+    
+    .hero-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.4);
+      transform: scale(1.1);
+      transition: transform 20s ease, filter 1.5s ease;
+      will-change: transform;
+    }
+    
+    .hero-video.loaded {
+      filter: brightness(0.6);
+      transform: scale(1);
+    }
+    
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.5) 30%,
+        rgba(0, 0, 0, 0.3) 60%,
+        rgba(0, 0, 0, 0.1) 100%
+      );
+      z-index: 2;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 0 var(--container-padding);
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .hero-eyebrow {
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--apple-white);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 8vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      margin-bottom: 2rem;
+      opacity: 0;
+      color: var(--apple-white);
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+    }
+    
+    .hero-subheadline {
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 3rem;
+      opacity: 0;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* ===== BUTTON STYLES ===== */
+    .apple-btn {
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      transition: var(--transition-smooth);
+      border: none;
+      cursor: pointer;
+    }
+    
+    .apple-btn-primary {
+      background: var(--apple-blue);
+      color: var(--apple-white);
+      border: 2px solid var(--apple-blue);
+    }
+    
+    .apple-btn-primary:hover {
+      background: transparent;
+      color: var(--apple-blue);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-medium);
+    }
+    
+    /* ===== APPLE SECTIONS ===== */
+    .apple-section {
+      padding: var(--section-spacing) 0;
+      position: relative;
+    }
+    
+    .section-light {
+      background: var(--apple-white);
+    }
+    
+    .section-dark {
+      background: var(--apple-gray-1);
+    }
+    
+    .section-header {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto 5rem;
+    }
+    
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: var(--apple-black);
+    }
+    
+    .section-subtitle {
+      font-size: 1.25rem;
+      color: var(--apple-gray-3);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    
+    /* ===== CONTACT CONTENT ===== */
+    .contact-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .contact-info {
+      padding-right: 2rem;
+    }
+    
+    .contact-info h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: var(--apple-dark-blue);
+    }
+    
+    .contact-details {
+      margin-bottom: 3rem;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    
+    .contact-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .contact-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(1, 102, 255, 0.1) 0%, rgba(1, 102, 255, 0.05) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1.5rem;
+      flex-shrink: 0;
+      transition: var(--transition-smooth);
+    }
+    
+    .contact-item:hover .contact-icon {
+      background: linear-gradient(135deg, var(--apple-blue) 0%, var(--apple-light-blue) 100%);
+      transform: scale(1.1);
+    }
+    
+    .contact-icon i {
+      font-size: 1.5rem;
+      color: var(--apple-blue);
+      transition: var(--transition-smooth);
+    }
+    
+    .contact-item:hover .contact-icon i {
+      color: var(--apple-white);
+    }
+    
+    .contact-text h4 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--apple-black);
+    }
+    
+    .contact-text p {
+      font-size: 1.1rem;
+      color: var(--apple-gray-4);
+      line-height: 1.6;
+    }
+    
+    .contact-text a {
+      color: var(--apple-blue);
+      text-decoration: none;
+      transition: var(--transition-smooth);
+    }
+    
+    .contact-text a:hover {
+      color: var(--apple-light-blue);
+      text-decoration: underline;
+    }
+    
+    /* ===== CONTACT FORM ===== */
+    .contact-form-container {
+      background: var(--apple-white);
+      border-radius: 24px;
+      padding: 3rem;
+      box-shadow: var(--shadow-medium);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+    
+    .form-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: var(--apple-black);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: var(--apple-black);
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      background: var(--apple-gray-1);
+      border: 1px solid var(--apple-gray-2);
+      border-radius: 12px;
+      color: var(--apple-black);
+      font-size: 1rem;
+      transition: var(--transition-smooth);
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--apple-blue);
+      background: var(--apple-white);
+      box-shadow: 0 0 0 3px rgba(1, 102, 255, 0.1);
+    }
+    
+    .form-input::placeholder {
+      color: var(--apple-gray-3);
+    }
+    
+    .submit-btn {
+      background: linear-gradient(135deg, var(--apple-blue), var(--apple-light-blue));
+      color: var(--apple-white);
+      border-radius: 50px;
+      padding: 1rem 2.5rem;
+      font-weight: 600;
+      border: none;
+      font-size: 1.1rem;
+      width: 100%;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(1, 102, 255, 0.3);
+    }
+    
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    .form-message {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 500;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+    }
+    
+    .form-message.success {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10B981;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .form-message.error {
+      background: rgba(239, 68, 68, 0.1);
+      color: #EF4444;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* ===== MAP SECTION ===== */
+    .map-container {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-medium);
+      margin-top: 4rem;
+      height: 500px;
+    }
+    
+    .map-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    /* ===== APPLE FOOTER ===== */
+    .apple-footer {
+      background: var(--apple-black);
+      color: var(--apple-white);
+      padding: 4rem 0 2rem;
+    }
+    
+    .footer-logo {
+      height: 48px;
+      width: auto;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .apple-social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .social-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--apple-white);
+      text-decoration: none;
+      transition: var(--transition-smooth);
+    }
+    
+    .social-icon:hover {
+      background: var(--apple-blue);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(1, 102, 255, 0.3);
+    }
+    
+    .footer-copyright {
+      color: var(--apple-gray-2);
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* ===== UTILITY CLASSES ===== */
+    .text-gradient {
+      background: linear-gradient(135deg, var(--apple-blue), var(--apple-light-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    /* ===== ANIMATION CLASSES ===== */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* ===== SCROLL INDICATOR ===== */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      opacity: 0;
+      animation: fadeInUp 1s ease 2s forwards;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+    
+    .scroll-indicator::after {
+      content: '';
+      width: 24px;
+      height: 40px;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 12px;
+      display: block;
+      position: relative;
+    }
+    
+    .scroll-indicator::before {
+      content: '';
+      width: 4px;
+      height: 10px;
+      background: var(--apple-blue);
+      border-radius: 2px;
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: scrollBounce 2s infinite;
+    }
+    
+    @keyframes scrollBounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+      }
+      40% {
+        transform: translateX(-50%) translateY(10px);
+      }
+      60% {
+        transform: translateX(-50%) translateY(5px);
+      }
+    }
+    
+    /* ===== RESPONSIVE DESIGN ===== */
+    @media (max-width: 768px) {
+      :root {
+        --section-spacing: 80px;
+      }
+      
+      .apple-video-hero {
+        height: 90vh;
+        min-height: 600px;
+      }
+      
+      .hero-headline {
+        font-size: clamp(2.5rem, 8vw, 3.5rem);
+      }
+      
+      .hero-subheadline {
+        font-size: clamp(1.25rem, 4vw, 1.75rem);
+      }
+      
+      .contact-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      
+      .contact-info {
+        padding-right: 0;
+      }
+      
+      .contact-form-container {
+        padding: 2rem;
+      }
+      
+      .map-container {
+        height: 400px;
+        margin-top: 3rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .section-title {
+        font-size: clamp(2rem, 8vw, 2.5rem);
+      }
+      
+      .contact-item {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .contact-icon {
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+      
+      .map-container {
+        height: 300px;
+      }
+      
+      .contact-form-container {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Apple Style Loader -->
+  <div class="apple-loader" id="appleLoader">
+    <div class="loader-content">
+      <img src="static/images/logos/2.png" alt="Hunter" class="loader-logo">
+      <div class="loader-line"></div>
+      <p style="margin-top: 1rem; color: var(--apple-gray-3); font-size: 0.9rem;">Insight. Strategy. Transformation.</p>
+    </div>
+  </div>
+
+  <!-- Apple Style Navbar -->
+  <nav class="navbar navbar-expand-lg apple-navbar" id="appleNavbar">
+    <div class="container">
+      <!-- Logo -->
+      <a class="navbar-brand" href="index.html">
+        <img src="static/images/logos/black.png" alt="Hunter" class="nav-logo">
+      </a>
+
+      <!-- Mobile Toggle -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" 
+              aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Navigation -->
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link apple-nav-link" href="services.html">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link apple-nav-link" href="why_us.html">Why Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link apple-nav-link" href="case_studies.html">Case Studies</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link apple-nav-link" href="about.html">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link apple-nav-link" href="carer.html">Careers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link apple-nav-link active" href="contact.html">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Apple Video Hero Section -->
+  <section class="apple-video-hero">
+    <!-- Video Background -->
+    <div class="hero-video-container">
+      <video class="hero-video" autoplay muted loop playsinline preload="auto">
+        <source src="static/videos/p.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="hero-overlay"></div>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="hero-content">
+      <div class="hero-eyebrow" id="heroEyebrow">Get in Touch</div>
+      
+      <h1 class="hero-headline" id="heroHeadline">
+        Let's Start <span class="text-gradient">Talking</span>
+      </h1>
+      
+      <p class="hero-subheadline" id="heroSubheadline">
+        Connect with our team to discover how Hunter International can transform your business with data-driven insights and strategic market intelligence.
+      </p>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator"></div>
+  </section>
+
+  <!-- Contact Information Section -->
+  <section class="apple-section section-light" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Our Locations</div>
+        <h2 class="section-title">Connect With <span class="text-gradient">Our Team</span></h2>
+        <p class="section-subtitle">
+          Reach out to us for inquiries, partnerships, or to learn more about our services. We're here to help you make informed business decisions.
+        </p>
+      </div>
+      
+      <div class="contact-content">
+        <!-- Contact Information -->
+        <div class="contact-info">
+          <h2>Contact Information</h2>
+          
+          <div class="contact-details">
+            <div class="contact-item animate-on-scroll" data-delay="0">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="contact-text">
+                <h4>Qatar Headquarters</h4>
+                <p>
+                  C Ring, KGH Building, opposite Gulf Times<br>
+                  2nd Floor, Office 205<br>
+                  P.O.BOX: 4558 DOHA, QATAR
+                </p>
+              </div>
+            </div>
+            
+            <div class="contact-item animate-on-scroll" data-delay="0.1">
+              <div class="contact-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="contact-text">
+                <h4>Phone Number</h4>
+                <p>
+                  <a href="tel:+97444886218">+974 4488 6218</a>
+                </p>
+              </div>
+            </div>
+            
+            <div class="contact-item animate-on-scroll" data-delay="0.2">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="contact-text">
+                <h4>Email Address</h4>
+                <p>
+                  <a href="mailto:ramy.soliman@hunter.com.qa">ramy.soliman@hunter.com.qa</a>
+                </p>
+              </div>
+            </div>
+            
+            <div class="contact-item animate-on-scroll" data-delay="0.3">
+              <div class="contact-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="contact-text">
+                <h4>Business Hours</h4>
+                <p>
+                  Sunday - Thursday: 8:00 AM - 5:00 PM<br>
+                  Friday - Saturday: Closed
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="apple-social-icons">
+            <a href="#" class="social-icon" aria-label="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.linkedin.com/company/hunterinternationalmarketresearch" class="social-icon" aria-label="LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="mailto:ramy.soliman@hunter.com.qa" class="social-icon" aria-label="Email">
+              <i class="fas fa-envelope"></i>
+            </a>
+            <a href="tel:+97444886218" class="social-icon" aria-label="Phone">
+              <i class="fas fa-phone"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Contact Form -->
+        <div class="contact-form-container">
+          <h3 class="form-title">Send Us a Message</h3>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name" class="form-label">Full Name *</label>
+              <input type="text" id="name" name="name" class="form-input" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="email" class="form-label">Email Address *</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email address" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="phone" class="form-label">Phone Number *</label>
+              <input type="tel" id="phone" name="phone" class="form-input" placeholder="Enter your phone number" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="message" class="form-label">Your Message</label>
+              <textarea id="message" name="message" class="form-input" rows="4" placeholder="Tell us about your project or inquiry..."></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn" id="submitBtn">
+              <i class="fas fa-paper-plane"></i>
+              Send Message
+            </button>
+            
+            <div id="formMessage" class="form-message"></div>
+          </form>
+        </div>
+      </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="apple-footer">
+    <div class="container">
+      <div class="text-center">
+        <img src="static/images/logos/white.png" alt="Hunter" class="footer-logo">
+        
+        <div class="apple-social-icons">
+          <a href="#" class="social-icon" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="social-icon" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/hunterinternationalmarketresearch" class="social-icon" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="mailto:ramy.soliman@hunter.com.qa" class="social-icon" aria-label="Email">
+            <i class="fas fa-envelope"></i>
+          </a>
+          <a href="tel:+97444886218" class="social-icon" aria-label="Phone">
+            <i class="fas fa-phone"></i>
+          </a>
+        </div>
+        
+        <div class="footer-copyright">
+          &copy; 2025 Hunter International. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- GSAP Animations -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Contact Us page loaded, initializing animations...');
+      
+      // Hide loader after 1.5 seconds
+      setTimeout(() => {
+        const loader = document.getElementById('appleLoader');
+        if (loader) {
+          loader.classList.add('hidden');
+          console.log('Loader hidden');
+        }
+      }, 1500);
+
+      // Initialize GSAP
+      gsap.registerPlugin(ScrollTrigger);
+      console.log('GSAP initialized');
+
+      // Navbar scroll effect
+      const navbar = document.getElementById('appleNavbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+
+      // Video initialization
+      const heroVideo = document.querySelector('.hero-video');
+      if (heroVideo) {
+        heroVideo.addEventListener('loadeddata', () => {
+          console.log('Video loaded successfully');
+          setTimeout(() => {
+            heroVideo.classList.add('loaded');
+            heroVideo.play().catch(e => console.log('Autoplay prevented:', e));
+          }, 500);
+        });
+        
+        // Fallback in case video doesn't trigger loadeddata
+        setTimeout(() => {
+          heroVideo.classList.add('loaded');
+          console.log('Video fallback loaded');
+        }, 2000);
+      }
+
+      // Enhanced Hero animations with GSAP
+      const heroTL = gsap.timeline({ defaults: { ease: "power3.out" } });
+      
+      heroTL
+        .to('#heroEyebrow', {
+          duration: 1,
+          opacity: 1,
+          y: 0,
+          delay: 0.5
+        })
+        .to('#heroHeadline', {
+          duration: 1.2,
+          opacity: 1,
+          y: 0,
+          scale: 1
+        }, "-=0.8")
+        .to('#heroSubheadline', {
+          duration: 1,
+          opacity: 1,
+          y: 0
+        }, "-=0.6");
+
+      console.log('Hero animations set up');
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href && href.startsWith('#')) {
+            e.preventDefault();
+            const targetId = href.substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop - 80,
+                behavior: 'smooth'
+              });
+            }
+          }
+        });
+      });
+
+      // Enhanced Scroll animations for contact items
+      const contactItems = document.querySelectorAll('.contact-item');
+      contactItems.forEach((item, index) => {
+        const delay = parseFloat(item.getAttribute('data-delay') || 0) * 0.2;
+        
+        ScrollTrigger.create({
+          trigger: item,
+          start: "top 85%",
+          onEnter: () => {
+            gsap.to(item, {
+              duration: 0.8,
+              delay: delay,
+              opacity: 1,
+              y: 0,
+              ease: "power2.out"
+            });
+            item.classList.add('visible');
+          }
+        });
+      });
+
+      // Form submission handling
+      const contactForm = document.getElementById('contactForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const formMessage = document.getElementById('formMessage');
+      
+      if (contactForm && submitBtn && formMessage) {
+        const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxDgCikQymOAt5qxj9bNt3Sk9qUOjKtxbenRCSjsOCp-FEivSVRV2JFheI8AuO3jw26YQ/exec";
+        
+        contactForm.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          
+          // Get form data
+          const formData = new FormData(this);
+          const payload = {
+            name: formData.get('name').trim(),
+            email: formData.get('email').trim(),
+            phone: formData.get('phone').trim(),
+            message: formData.get('message').trim()
+          };
+          
+          // Validate form
+          if (!payload.name || !payload.email || !payload.phone) {
+            showFormMessage('Please fill in all required fields.', 'error');
+            return;
+          }
+          
+          // Disable submit button and show loading
+          const originalText = submitBtn.innerHTML;
+          submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+          submitBtn.disabled = true;
+          
+          try {
+            // Send to Google Apps Script
+            const response = await fetch(WEBHOOK_URL, {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload)
+            });
+            
+            // Show success message
+            showFormMessage('Message sent successfully! We\'ll get back to you soon.', 'success');
+            contactForm.reset();
+            
+            // Animate success
+            gsap.to(submitBtn, {
+              backgroundColor: "#10B981",
+              duration: 0.3,
+              onComplete: () => {
+                setTimeout(() => {
+                  submitBtn.innerHTML = originalText;
+                  submitBtn.disabled = false;
+                  gsap.to(submitBtn, {
+                    backgroundColor: "",
+                    duration: 0.3
+                  });
+                }, 2000);
+              }
+            });
+            
+          } catch (error) {
+            console.error('Error sending form:', error);
+            showFormMessage('There was an error sending your message. Please try again.', 'error');
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+          }
+        });
+        
+        // Helper function to show form messages
+        function showFormMessage(text, type) {
+          formMessage.textContent = text;
+          formMessage.className = `form-message ${type}`;
+          
+          // Animate message
+          gsap.fromTo(formMessage,
+            { opacity: 0, y: -10 },
+            { opacity: 1, y: 0, duration: 0.3 }
+          );
+          
+          // Auto-hide after 5 seconds
+          setTimeout(() => {
+            gsap.to(formMessage, {
+              opacity: 0,
+              y: -10,
+              duration: 0.3,
+              onComplete: () => {
+                formMessage.textContent = '';
+                formMessage.className = 'form-message';
+              }
+            });
+          }, 5000);
+        }
+      }
+
+      // Initialize all elements as invisible
+      gsap.set('.hero-eyebrow, .hero-headline, .hero-subheadline, .contact-item', {
+        opacity: 0,
+        y: 30
+      });
+
+      // Hover effects for contact items
+      contactItems.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+          gsap.to(item, {
+            y: -5,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        });
+        
+        item.addEventListener('mouseleave', () => {
+          gsap.to(item, {
+            y: 0,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        });
+      });
+
+      console.log('All animations initialized successfully');
+    });
+
+    // Handle page load
+    window.addEventListener('load', () => {
+      console.log('Contact Us page fully loaded');
+      
+      // Refresh ScrollTrigger after images load
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+        console.log('ScrollTrigger refreshed');
+      }, 500);
+      
+      // Check if page loaded with hash
+      if (window.location.hash) {
+        setTimeout(() => {
+          const target = document.querySelector(window.location.hash);
+          if (target) {
+            window.scrollTo({
+              top: target.offsetTop - 80,
+              behavior: 'smooth'
+            });
+          }
+        }, 1000);
+      }
+    });
+  </script>
+</body>
+</html>
