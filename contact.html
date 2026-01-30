@@ -1,0 +1,2454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact - NovaSynk</title>
+  
+  <!-- External dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- NovaSynk Enhanced Style CSS -->
+  <style>
+    /* ===== ENHANCED COLOR VARIABLES ===== */
+    :root {
+      /* Brand Color Palette */
+      --background: #0B0F19;
+      --primary: #3B82F6;
+      --secondary: #A855F7;
+      --accent: #22D3EE;
+      --text: #FFFFFF;
+      --text-secondary: #94A3B8;
+      
+      /* Spacing */
+      --section-spacing: 120px;
+      --container-padding: max(5vw, 20px);
+      
+      /* Shadows */
+      --shadow-glow: 0 0 50px rgba(59, 130, 246, 0.2);
+      --shadow-purple-glow: 0 0 50px rgba(168, 85, 247, 0.2);
+      --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.4);
+      
+      /* Transitions */
+      --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      color: var(--text);
+      background: var(--background);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ===== VISIBILITY FIXES ===== */
+    /* Prevent flash of invisible content */
+    body.preload .animated-element {
+      opacity: 0;
+      visibility: hidden;
+    }
+    
+    /* Progressive enhancement */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      
+      .hero-eyebrow,
+      .hero-headline,
+      .hero-description,
+      .content-block,
+      .mv-card,
+      .value-item,
+      .stat-item,
+      .timeline-item {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* ===== NEURAL NETWORK BACKGROUND ===== */
+    .neural-network {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    
+    .neuron {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.8) 0%, rgba(59, 130, 246, 0.3) 70%);
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+      animation: pulseNeuron 3s infinite ease-in-out;
+    }
+    
+    .axon {
+      position: absolute;
+      background: linear-gradient(90deg, rgba(59, 130, 246, 0.4), rgba(168, 85, 247, 0.4));
+      height: 1px;
+      transform-origin: left center;
+      animation: pulseAxon 4s infinite ease-in-out;
+      opacity: 0.2;
+    }
+    
+    .dendrite {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: rgba(34, 211, 238, 0.6);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(34, 211, 238, 0.4);
+      animation: floatDendrite 5s infinite ease-in-out;
+    }
+    
+    .synapse {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.8);
+      animation: sparkleSynapse 2s infinite ease-in-out;
+    }
+    
+    @keyframes pulseNeuron {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.3); opacity: 1; }
+    }
+    
+    @keyframes pulseAxon {
+      0%, 100% { opacity: 0.1; }
+      50% { opacity: 0.3; }
+    }
+    
+    @keyframes floatDendrite {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      25% { transform: translateY(-5px) translateX(3px); }
+      50% { transform: translateY(0) translateX(6px); }
+      75% { transform: translateY(5px) translateX(3px); }
+    }
+    
+    @keyframes sparkleSynapse {
+      0%, 100% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* ===== CREATIVE GEOMETRIC SHAPES ===== */
+    .geometric-shapes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      opacity: 0.1;
+    }
+    
+    .shape {
+      position: absolute;
+      border: 2px solid rgba(59, 130, 246, 0.3);
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      animation: morphShape 20s infinite linear;
+    }
+    
+    @keyframes morphShape {
+      0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+      25% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; }
+      50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
+      75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; }
+      100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+    }
+
+    /* ===== ENHANCED NAVBAR ===== */
+    .novasynk-navbar {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 1200px;
+      z-index: 1000;
+      background: rgba(11, 15, 25, 0.9);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 15px;
+      padding: 1rem 2rem;
+      transition: var(--transition-smooth);
+    }
+    
+    .novasynk-navbar.scrolled {
+      top: 10px;
+      background: rgba(11, 15, 25, 0.95);
+      box-shadow: var(--shadow-soft);
+    }
+    
+    .nav-logo {
+      height: 40px;
+      width: auto;
+      filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+    }
+    
+    .novasynk-nav-link {
+      color: var(--text) !important;
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 0.5rem 1.5rem !important;
+      position: relative;
+      transition: var(--transition-smooth);
+      border-radius: 8px;
+    }
+    
+    .novasynk-nav-link:hover {
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--primary) !important;
+    }
+    
+    .novasynk-nav-link.active {
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--primary) !important;
+    }
+    
+    .novasynk-nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: var(--transition-smooth);
+      transform: translateX(-50%);
+    }
+    
+    .novasynk-nav-link:hover::after,
+    .novasynk-nav-link.active::after {
+      width: 70%;
+    }
+    
+    /* ===== CONTACT HERO SECTION ===== */
+    .contact-hero {
+      height: 80vh;
+      min-height: 600px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--background);
+      margin-top: 100px;
+      padding-top: 60px;
+    }
+    
+    .hero-video-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    
+    .hero-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+      filter: brightness(0.6);
+    }
+    
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(11, 15, 25, 0.95) 0%,
+        rgba(11, 15, 25, 0.8) 20%,
+        rgba(11, 15, 25, 0.6) 40%,
+        rgba(11, 15, 25, 0.3) 60%,
+        rgba(11, 15, 25, 0) 80%
+      );
+      z-index: 2;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 0 var(--container-padding);
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .hero-eyebrow {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 2.5rem;
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: rgba(59, 130, 246, 0.1);
+      border-radius: 50px;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      backdrop-filter: blur(10px);
+      animation: floatUpDown 3s infinite ease-in-out;
+    }
+    
+    @keyframes floatUpDown {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 8vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      margin-bottom: 2rem;
+      background: linear-gradient(135deg, var(--text) 0%, var(--primary) 50%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);
+    }
+    
+    .hero-subtitle {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 400;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .hero-description {
+      font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+      color: var(--text-secondary);
+      max-width: 800px;
+      margin: 0 auto 4rem;
+      line-height: 1.8;
+      padding: 0 2rem;
+      opacity: 0.9;
+    }
+
+    /* ===== ENHANCED SECTIONS ===== */
+    .creative-section {
+      padding: clamp(80px, 10vw, 140px) 0;
+      position: relative;
+    }
+    
+    .section-light {
+      background: rgba(241, 245, 249, 0.03);
+    }
+    
+    .section-gradient {
+      background: linear-gradient(135deg, rgba(11, 15, 25, 0.9) 0%, rgba(11, 15, 25, 0.95) 100%);
+    }
+    
+    .section-dark {
+      background: var(--background);
+    }
+    
+    .section-header {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto clamp(4rem, 6vw, 6rem);
+      padding: 0 1rem;
+    }
+    
+    .section-eyebrow {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      background: rgba(59, 130, 246, 0.1);
+      border-radius: 50px;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+    
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+      padding: 0 1rem;
+    }
+    
+    .section-subtitle {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+      padding: 0 1rem;
+    }
+
+    /* ===== CONTACT GRID ===== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+    
+    .contact-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(59, 130, 246, 0.15);
+      border-radius: 20px;
+      padding: 2.5rem;
+      text-align: center;
+      transition: var(--transition-bounce);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transform: scaleX(0);
+      transition: transform 0.6s ease;
+    }
+    
+    .contact-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-glow);
+    }
+    
+    .contact-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .contact-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.05));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      transition: var(--transition-smooth);
+    }
+    
+    .contact-card:hover .contact-icon {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      transform: rotate(10deg) scale(1.1);
+    }
+    
+    .contact-icon i {
+      font-size: 1.75rem;
+      color: var(--primary);
+      transition: var(--transition-smooth);
+    }
+    
+    .contact-card:hover .contact-icon i {
+      color: white;
+    }
+    
+    .contact-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    
+    .contact-description {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    
+    .contact-link {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition-smooth);
+    }
+    
+    .contact-link:hover {
+      color: var(--accent);
+      transform: translateX(5px);
+    }
+
+    /* ===== CONTACT FORM ===== */
+    .contact-form-section {
+      background: rgba(15, 23, 42, 0.3);
+      border-radius: 30px;
+      padding: 5rem 3rem;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .contact-form-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
+      z-index: 1;
+    }
+    
+    .form-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .form-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    
+    .form-subheading {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+      max-width: 600px;
+    }
+    
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 2rem;
+    }
+    
+    .form-label {
+      color: var(--text);
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+      display: block;
+      font-size: 1rem;
+    }
+    
+    .form-control {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 12px;
+      color: var(--text);
+      padding: 1.2rem 1.5rem;
+      font-size: 1rem;
+      transition: var(--transition-smooth);
+      width: 100%;
+    }
+    
+    .form-control:focus {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--primary);
+      color: var(--text);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      outline: none;
+    }
+    
+    .form-control::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+    
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    /* Form Row */
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    
+    /* Submit Button */
+    .submit-btn {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      border: none;
+      border-radius: 16px;
+      padding: 1.2rem 3rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: var(--transition-bounce);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      min-width: 200px;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+      transform: translateX(-100%);
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: -1;
+    }
+    
+    .submit-btn:hover::before {
+      transform: translateX(0);
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+    }
+    
+    .submit-btn i {
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+    }
+    
+    .submit-btn:hover i {
+      transform: translateX(5px);
+    }
+
+    /* ===== MAP SECTION ===== */
+    .map-section {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+    
+    .map-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(11, 15, 25, 0.2) 0%,
+        rgba(11, 15, 25, 0.4) 100%
+      );
+      z-index: 1;
+      pointer-events: none;
+    }
+    
+    #contactMap {
+      width: 100%;
+      height: 400px;
+      border-radius: 20px;
+    }
+
+    /* ===== FREQUENTLY ASKED QUESTIONS ===== */
+    .faq-section {
+      margin-top: 5rem;
+    }
+    
+    .faq-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(59, 130, 246, 0.15);
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      transition: var(--transition-smooth);
+    }
+    
+    .faq-item:hover {
+      border-color: rgba(59, 130, 246, 0.3);
+      box-shadow: var(--shadow-glow);
+    }
+    
+    .faq-question {
+      padding: 1.5rem 2rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.1rem;
+    }
+    
+    .faq-question i {
+      color: var(--primary);
+      transition: transform 0.3s ease;
+    }
+    
+    .faq-answer {
+      padding: 0 2rem 1.5rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      display: none;
+    }
+    
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+    
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    /* ===== CREATIVE CTA ===== */
+    .creative-cta {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.05));
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 30px;
+      padding: 5rem 2rem;
+      text-align: center;
+      margin-top: 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .creative-cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
+      z-index: 1;
+    }
+    
+    .cta-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .cta-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    
+    .cta-description {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ===== BEAUTIFUL BUTTONS ===== */
+    .hero-btn {
+      padding: 1.2rem 3rem;
+      border-radius: 16px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      min-width: 200px;
+      text-align: center;
+      z-index: 1;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .hero-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    .hero-btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .hero-btn-primary::before {
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+      transform: translateX(-100%);
+    }
+    
+    .hero-btn-primary:hover::before {
+      transform: translateX(0);
+    }
+    
+    .hero-btn-primary:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .hero-btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+    }
+    
+    .hero-btn-secondary::before {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+      transform: translateX(-100%);
+    }
+    
+    .hero-btn-secondary:hover::before {
+      transform: translateX(0);
+    }
+    
+    .hero-btn-secondary:hover {
+      background: rgba(59, 130, 246, 0.1);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    
+    .hero-btn i {
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+    }
+    
+    .hero-btn:hover i {
+      transform: translateX(5px);
+    }
+
+    /* ===== NOVASYNK FOOTER ===== */
+    .novasynk-footer {
+      background: rgba(241, 245, 249, 0.02);
+      border-top: 1px solid rgba(59, 130, 246, 0.1);
+      padding: clamp(2rem, 4vw, 4rem) 0 2rem;
+    }
+    
+    .footer-logo {
+      height: 48px;
+      width: auto;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .novasynk-social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .social-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(59, 130, 246, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      text-decoration: none;
+      transition: var(--transition-smooth);
+    }
+    
+    .social-icon:hover {
+      background: var(--primary);
+      color: var(--background);
+      transform: translateY(-2px);
+    }
+    
+    .footer-copyright {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(59, 130, 246, 0.1);
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    /* ===== CHATBOT SYSTEM ===== */
+    .chatbot-container {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 9999;
+    }
+    
+    .chatbot-toggle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 25px rgba(59, 130, 246, 0.4);
+      border: 3px solid var(--background);
+      transition: var(--transition-bounce);
+      animation: pulseChatbot 2s infinite;
+    }
+    
+    @keyframes pulseChatbot {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    .chatbot-toggle:hover {
+      transform: scale(1.15);
+      box-shadow: 0 6px 30px rgba(59, 130, 246, 0.6);
+    }
+    
+    .chatbot-sidebar {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 350px;
+      height: 100vh;
+      background: rgba(11, 15, 25, 0.98);
+      backdrop-filter: blur(20px);
+      border-left: 1px solid rgba(59, 130, 246, 0.3);
+      transition: right 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      display: flex;
+      flex-direction: column;
+      z-index: 9998;
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+    }
+    
+    .chatbot-sidebar.active {
+      right: 0;
+    }
+    
+    .chatbot-header {
+      padding: 1.5rem;
+      background: rgba(59, 130, 246, 0.1);
+      border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .chatbot-header-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .chatbot-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: white;
+    }
+    
+    .chatbot-close {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      font-size: 1.25rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 8px;
+      transition: var(--transition-smooth);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .chatbot-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+    
+    .chatbot-messages {
+      flex: 1;
+      padding: 1.5rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .chatbot-message {
+      max-width: 85%;
+      padding: 1rem 1.25rem;
+      border-radius: 18px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: white;
+      animation: messageSlide 0.3s ease;
+    }
+    
+    @keyframes messageSlide {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .message-bot {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      align-self: flex-start;
+    }
+    
+    .message-user {
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      align-self: flex-end;
+    }
+    
+    .chatbot-input {
+      padding: 1.5rem;
+      border-top: 1px solid rgba(59, 130, 246, 0.2);
+    }
+    
+    .chatbot-input .input-group {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      overflow: hidden;
+    }
+    
+    .chatbot-input .form-control {
+      background: transparent;
+      border: none;
+      color: white;
+      padding: 1rem;
+      font-size: 0.95rem;
+    }
+    
+    .chatbot-input .form-control:focus {
+      box-shadow: none;
+      background: transparent;
+      color: white;
+    }
+    
+    .chatbot-input .form-control::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .chatbot-input .btn {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border: none;
+      padding: 1rem 1.5rem;
+      color: white;
+      transition: var(--transition-smooth);
+    }
+    
+    .chatbot-input .btn:hover {
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+    }
+    
+    .quick-questions {
+      margin-top: 1rem;
+    }
+    
+    .quick-question {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      color: white;
+      font-size: 0.85rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      transition: var(--transition-smooth);
+      cursor: pointer;
+      margin: 0.25rem;
+    }
+    
+    .quick-question:hover {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+    
+    /* Typing indicator */
+    .typing-indicator {
+      display: flex;
+      gap: 4px;
+      padding: 8px 12px;
+    }
+    
+    .typing-indicator span {
+      width: 6px;
+      height: 6px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: typingBounce 1.4s infinite ease-in-out;
+    }
+    
+    .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+    .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0s; }
+    
+    @keyframes typingBounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+
+    /* ===== RESPONSIVE DESIGN ===== */
+    @media (max-width: 992px) {
+      .novasynk-navbar {
+        width: 95%;
+        padding: 0.75rem 1rem;
+      }
+      
+      .contact-hero {
+        min-height: 500px;
+        margin-top: 90px;
+      }
+      
+      .hero-headline {
+        font-size: clamp(3rem, 7vw, 4.5rem);
+      }
+      
+      .hero-subtitle {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+      }
+      
+      .contact-form-section {
+        padding: 4rem 2rem;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .contact-hero {
+        min-height: 450px;
+        margin-top: 80px;
+        padding-top: 40px;
+      }
+      
+      .hero-content {
+        padding-top: 20px;
+      }
+      
+      .hero-headline {
+        font-size: clamp(2.5rem, 6vw, 3.5rem);
+      }
+      
+      .hero-subtitle {
+        font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      }
+      
+      .hero-description {
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
+        padding: 0 1rem;
+      }
+      
+      .hero-eyebrow {
+        font-size: 1rem;
+        padding: 0.8rem 2rem;
+        margin-bottom: 2rem;
+      }
+      
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      
+      .hero-btn {
+        width: 100%;
+        max-width: 350px;
+        padding: 1.2rem 2rem;
+        min-height: 60px;
+      }
+      
+      .contact-form-section {
+        padding: 3rem 1.5rem;
+      }
+      
+      .faq-question {
+        padding: 1.25rem 1.5rem;
+        font-size: 1rem;
+      }
+      
+      .faq-answer {
+        padding: 0 1.5rem 1.25rem;
+      }
+      
+      .chatbot-sidebar {
+        width: 100%;
+        right: -100%;
+      }
+      
+      .chatbot-container {
+        bottom: 20px;
+        right: 20px;
+      }
+      
+      .chatbot-toggle {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .contact-hero {
+        min-height: 400px;
+        margin-top: 70px;
+      }
+      
+      .hero-headline {
+        font-size: clamp(2rem, 5vw, 2.5rem);
+      }
+      
+      .hero-subtitle {
+        font-size: clamp(1.1rem, 2vw, 1.4rem);
+      }
+      
+      .hero-eyebrow {
+        font-size: 0.9rem;
+        padding: 0.7rem 1.5rem;
+      }
+      
+      .hero-btn {
+        font-size: 1rem;
+        padding: 1rem 1.5rem;
+        min-height: 56px;
+      }
+      
+      .contact-form-section {
+        padding: 2.5rem 1.25rem;
+        border-radius: 20px;
+      }
+      
+      .form-heading {
+        font-size: clamp(1.8rem, 4vw, 2.2rem);
+      }
+      
+      .form-subheading {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+      }
+      
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+      
+      .form-control {
+        padding: 1rem 1.25rem;
+      }
+      
+      .submit-btn {
+        width: 100%;
+        max-width: 100%;
+        padding: 1.2rem 2rem;
+      }
+      
+      .faq-item {
+        border-radius: 12px;
+      }
+      
+      .faq-question {
+        padding: 1.2rem 1.25rem;
+        font-size: 0.95rem;
+      }
+      
+      .faq-answer {
+        padding: 0 1.25rem 1.2rem;
+        font-size: 0.9rem;
+      }
+      
+      .chatbot-container {
+        bottom: 15px;
+        right: 15px;
+      }
+    }
+    
+    @media (max-width: 375px) {
+      .contact-hero {
+        min-height: 350px;
+      }
+      
+      .hero-headline {
+        font-size: clamp(1.8rem, 5vw, 2.2rem);
+      }
+      
+      .hero-eyebrow {
+        font-size: 0.85rem;
+        padding: 0.6rem 1.25rem;
+      }
+      
+      .contact-card {
+        padding: 2rem 1.5rem;
+      }
+      
+      .contact-icon {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .contact-icon i {
+        font-size: 1.5rem;
+      }
+      
+      .contact-title {
+        font-size: 1.3rem;
+      }
+      
+      .contact-form-section {
+        padding: 2rem 1rem;
+      }
+      
+      .form-control {
+        padding: 0.9rem 1rem;
+      }
+    }
+    
+    /* ===== UTILITY CLASSES ===== */
+    .text-gradient {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .text-accent {
+      color: var(--accent);
+    }
+    
+    .mb-0 {
+      margin-bottom: 0 !important;
+    }
+    
+    .text-center {
+      text-align: center !important;
+    }
+    /* Style for select options */
+select option {
+  color: #000 !important;
+  background: #fff !important;
+}
+
+/* Style for the placeholder option */
+select option[value=""][disabled] {
+  color: #666 !important;
+}
+
+/* For better browser compatibility */
+select {
+  color: var(--text);
+}
+
+select:focus option {
+  color: #000 !important;
+}
+
+/* Alert Notifications */
+.form-alert {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  z-index: 9999;
+  max-width: 400px;
+  animation: slideIn 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-alert i {
+  font-size: 1.2rem;
+}
+
+.alert-success {
+  background: #10B981;
+  color: white;
+}
+
+.alert-error {
+  background: #EF4444;
+  color: white;
+}
+
+.alert-info {
+  background: #3B82F6;
+  color: white;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+  </style>
+</head>
+<body>
+  <!-- Neural Network Background -->
+  <div class="neural-network" id="neuralNetwork"></div>
+  
+  <!-- Geometric Shapes -->
+  <div class="geometric-shapes">
+    <div class="shape" style="width: 300px; height: 300px; top: 10%; left: 5%; border-color: rgba(59, 130, 246, 0.2);"></div>
+    <div class="shape" style="width: 400px; height: 400px; top: 60%; right: 10%; border-color: rgba(168, 85, 247, 0.2); animation-delay: -5s;"></div>
+    <div class="shape" style="width: 250px; height: 250px; bottom: 20%; left: 15%; border-color: rgba(34, 211, 238, 0.2); animation-delay: -10s;"></div>
+  </div>
+
+  <!-- Enhanced Navbar -->
+  <nav class="navbar navbar-expand-lg novasynk-navbar" id="novasynkNavbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">
+        <img src="static/images/logos/nova.png" alt="NovaSynk" class="nav-logo">
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" 
+              aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link novasynk-nav-link" href="services.html">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link novasynk-nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link novasynk-nav-link" href="why-choose-us.html">Why Choose Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link novasynk-nav-link" href="mission-vision.html">Mission & Vision</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link novasynk-nav-link active" href="contact.html">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contact Hero Section with Video -->
+  <section class="contact-hero" id="contactHero">
+    <!-- Video Background -->
+    <div class="hero-video-container">
+      <video class="hero-video" autoplay muted loop playsinline>
+        <source src="static/videos/p.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="hero-overlay"></div>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="hero-content">
+      <div class="hero-eyebrow" id="heroEyebrow">Get in Touch</div>
+      <h1 class="hero-headline" id="heroHeadline">Let's Connect and Create</h1>
+      <p class="hero-description" id="heroDescription">
+        Ready to transform your data into intelligence? We're here to listen, understand, and build 
+        innovative solutions that drive your business forward. Start the conversation today.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Information Section -->
+  <section class="creative-section" id="contact-info">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Multiple Ways to Connect</div>
+        <h2 class="section-title">Choose How You'd Like to Reach Us</h2>
+        <p class="section-subtitle">
+          Whether you have a quick question or a complex project, we're ready to help.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <h4 class="contact-title">Email Us</h4>
+          <p class="contact-description">
+            For detailed inquiries, project proposals, and formal communications
+          </p>
+          <a href="mailto:contact@nova-synk.info" class="contact-link">
+            contact@nova-synk.info
+          </a>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fas fa-phone"></i>
+          </div>
+          <h4 class="contact-title">Call Us</h4>
+          <p class="contact-description">
+            For immediate assistance, quick questions, and voice consultations
+          </p>
+          <a href="tel:+201111785071" class="contact-link">
+            +2 01111 78 5071
+          </a>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+          <h4 class="contact-title">Schedule a Meeting</h4>
+          <p class="contact-description">
+            For strategic consultations, project planning, and in-depth discussions
+          </p>
+          <a href="#contact-form" class="contact-link">
+            Book a consultation
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form Section -->
+  <section class="creative-section section-gradient" id="contact-form">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Send Us a Message</div>
+        <h2 class="section-title">Tell Us About Your Project</h2>
+        <p class="section-subtitle">
+          Fill out the form below and we'll get back to you within 24 hours.
+        </p>
+      </div>
+
+      <div class="contact-form-section">
+        <div class="form-content">
+          <h3 class="form-heading">Ready to Start?</h3>
+          <p class="form-subheading">
+            Provide some details about your project, and we'll prepare a customized solution for you.
+          </p>
+          
+          <form id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name" class="form-label">Full Name *</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="email" class="form-label">Email Address *</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email address" required>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="company" class="form-label">Company / Organization</label>
+                <input type="text" class="form-control" id="company" name="company" placeholder="Enter your company name">
+              </div>
+              
+              <div class="form-group">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="service" class="form-label">Service Interest *</label>
+              <select class="form-control" id="service" name="service" required>
+                <option value="" disabled selected style="color: #666;">Select a service</option>
+                <option value="Market Research" style="color: #000;">Market Research</option>
+                <option value="Data Analysis & BI" style="color: #000;">Data Analysis & BI</option>
+                <option value="Web Development" style="color: #000;">Web Development</option>
+                <option value="Computer Vision" style="color: #000;">Computer Vision</option>
+                <option value="AI Chatbots & Automation" style="color: #000;">AI Chatbots & Automation</option>
+                <option value="Multiple Services" style="color: #000;">Multiple Services</option>
+                <option value="Consultation" style="color: #000;">Consultation</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="message" class="form-label">Project Details *</label>
+              <textarea class="form-control" id="message" name="message" rows="5" placeholder="Tell us about your project, goals, timeline, and any specific requirements..." required></textarea>
+            </div>
+            
+            <!-- Add hidden fields for Google Apps Script -->
+            <input type="hidden" name="sheetId" value="1W3gfjI7i4JDX0flnBaXfHR03u2DWJBxjZZ9yqDD8I70">
+            
+            <div class="text-center mt-5">
+              <button type="submit" class="submit-btn">
+                <i class="fas fa-paper-plane me-2"></i>
+                Send Message
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Frequently Asked Questions -->
+  <section class="creative-section" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Common Questions</div>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">
+          Quick answers to common questions about working with NovaSynk.
+        </p>
+      </div>
+
+      <div class="faq-section">
+        <div class="faq-item">
+          <div class="faq-question">
+            What is your typical response time?
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            We typically respond to all inquiries within 24 hours. For urgent matters, please call us directly at +2 01111 78 5071 for immediate assistance.
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            Do you offer free consultations?
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Yes, we offer a free 30-minute initial consultation for all new clients. This allows us to understand your needs and determine how we can best help you achieve your goals.
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            What information should I provide for a project estimate?
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            For the most accurate estimate, please provide: project goals, target audience, timeline, budget range, any existing materials or data, and specific requirements or constraints.
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            Do you work with international clients?
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Absolutely! We work with clients worldwide. We're experienced in remote collaboration and can accommodate different time zones and communication preferences.
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            What is your project management process?
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Our process includes: discovery phase, planning and strategy, design/development, testing and refinement, delivery, and ongoing support. We provide regular updates and involve you at every stage.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="creative-section" id="final-cta">
+    <div class="container">
+      <div class="creative-cta">
+        <div class="cta-content">
+          <h2 class="cta-title">Ready to Transform Your Data?</h2>
+          <p class="cta-description">
+            Don't let complex data hold you back. Partner with NovaSynk to unlock insights, 
+            drive innovation, and achieve your business goals with intelligent solutions.
+          </p>
+          <div class="cta-buttons">
+            <a href="mailto:contact@nova-synk.info" class="hero-btn hero-btn-primary">
+              <i class="fas fa-envelope"></i>
+              Email Us Now
+            </a>
+            <a href="tel:+201111785071" class="hero-btn hero-btn-secondary">
+              <i class="fas fa-phone"></i>
+              Call Us Today
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="novasynk-footer">
+    <div class="container">
+      <div class="text-center">
+        <img src="static/images/logos/nova.png" alt="NovaSynk" class="footer-logo">
+        
+        <div class="novasynk-social-icons">
+          <a href="#" class="social-icon" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="#" class="social-icon" aria-label="Facebook">
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a href="#" class="social-icon" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="mailto:contact@nova-synk.info" class="social-icon" aria-label="Email">
+            <i class="fas fa-envelope"></i>
+          </a>
+          <a href="tel:+201111785071" class="social-icon" aria-label="Phone">
+            <i class="fas fa-phone"></i>
+          </a>
+        </div>
+        
+        <div class="footer-copyright">
+          &copy; 2024 NovaSynk. Where Data, Intelligence, and Technology Connect.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Chatbot System -->
+  <div class="chatbot-container">
+    <div class="chatbot-toggle" id="chatbotToggle">
+      <i class="fas fa-robot"></i>
+    </div>
+    
+    <div class="chatbot-sidebar" id="chatbotSidebar">
+      <div class="chatbot-header">
+        <div class="chatbot-header-content">
+          <div class="chatbot-avatar">
+            <i class="fas fa-comments"></i>
+          </div>
+          <div>
+            <h6 class="mb-0">NovaSynk Contact Assistant</h6>
+            <small>Online - Ready to help</small>
+          </div>
+        </div>
+        <button class="chatbot-close" id="chatbotClose">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="chatbot-messages" id="chatbotMessages">
+        <div class="chatbot-message message-bot">
+          Hello! I'm your NovaSynk Contact Assistant. I can help you with contact information, answer questions about our services, or assist you in reaching the right team. How can I help you today?
+        </div>
+      </div>
+      
+      <div class="chatbot-input">
+        <div class="input-group">
+          <input type="text" 
+                 class="form-control" 
+                 id="chatbotInput" 
+                 placeholder="Ask about contact info or services..." 
+                 autocomplete="off">
+          <button class="btn" id="chatbotSend">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+        <div class="quick-questions mt-3">
+          <small>Try asking:</small>
+          <div class="d-flex flex-wrap mt-2">
+            <button class="quick-question" data-question="What is your email?">
+              Email
+            </button>
+            <button class="quick-question" data-question="What is your phone number?">
+              Phone
+            </button>
+            <button class="quick-question" data-question="How do I schedule a meeting?">
+              Schedule Meeting
+            </button>
+            <button class="quick-question" data-question="What services do you offer?">
+              Services
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Enhanced Animations Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Remove preload class to allow animations
+      document.body.classList.remove('preload');
+      
+      // Check user preferences
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const isMobile = window.innerWidth <= 768;
+      
+      // ===== NEURAL NETWORK BACKGROUND =====
+      const neuralNetwork = document.getElementById('neuralNetwork');
+      
+      // Create neurons
+      const neurons = [];
+      for (let i = 0; i < 40; i++) {
+        const neuron = document.createElement('div');
+        neuron.className = 'neuron';
+        neuron.style.left = Math.random() * 100 + '%';
+        neuron.style.top = Math.random() * 100 + '%';
+        neuron.style.animationDelay = Math.random() * 3 + 's';
+        neuron.style.width = Math.random() * 8 + 10 + 'px';
+        neuron.style.height = neuron.style.width;
+        neuralNetwork.appendChild(neuron);
+        neurons.push({
+          element: neuron,
+          x: parseFloat(neuron.style.left),
+          y: parseFloat(neuron.style.top)
+        });
+      }
+      
+      // Create dendrites
+      for (let i = 0; i < 80; i++) {
+        const dendrite = document.createElement('div');
+        dendrite.className = 'dendrite';
+        dendrite.style.left = Math.random() * 100 + '%';
+        dendrite.style.top = Math.random() * 100 + '%';
+        dendrite.style.animationDelay = Math.random() * 5 + 's';
+        dendrite.style.animationDuration = Math.random() * 3 + 4 + 's';
+        neuralNetwork.appendChild(dendrite);
+      }
+      
+      // Create synapses
+      for (let i = 0; i < 60; i++) {
+        const synapse = document.createElement('div');
+        synapse.className = 'synapse';
+        synapse.style.left = Math.random() * 100 + '%';
+        synapse.style.top = Math.random() * 100 + '%';
+        synapse.style.animationDelay = Math.random() * 2 + 's';
+        synapse.style.animationDuration = Math.random() * 1 + 1 + 's';
+        neuralNetwork.appendChild(synapse);
+      }
+      
+      // Create axons between neurons
+      setTimeout(() => {
+        neurons.forEach((neuron1, i) => {
+          neurons.slice(i + 1).forEach(neuron2 => {
+            const distance = Math.sqrt(
+              Math.pow(neuron1.x - neuron2.x, 2) + 
+              Math.pow(neuron1.y - neuron2.y, 2)
+            );
+            
+            if (distance < 40) {
+              const axon = document.createElement('div');
+              axon.className = 'axon';
+              
+              const angle = Math.atan2(
+                neuron2.y - neuron1.y,
+                neuron2.x - neuron1.x
+              ) * 180 / Math.PI;
+              
+              const length = distance;
+              
+              axon.style.left = neuron1.x + '%';
+              axon.style.top = neuron1.y + '%';
+              axon.style.width = length + 'vw';
+              axon.style.transform = `rotate(${angle}deg)`;
+              axon.style.animationDelay = Math.random() * 4 + 's';
+              axon.style.animationDuration = Math.random() * 2 + 3 + 's';
+              
+              neuralNetwork.appendChild(axon);
+            }
+          });
+        });
+      }, 100);
+
+      // ===== ENHANCED ANIMATIONS =====
+      gsap.registerPlugin(ScrollTrigger);
+      
+      // Skip animations if user prefers reduced motion
+      if (prefersReducedMotion) {
+        // Set all elements to visible immediately
+        gsap.set('*', { opacity: 1, y: 0, x: 0, scale: 1 });
+        console.log('Reduced motion preference detected - animations disabled');
+      } else {
+        // ===== HERO ANIMATIONS =====
+        // Initial setup - hide elements
+        gsap.set(['#heroEyebrow', '#heroHeadline', '#heroDescription'], {
+          opacity: 0,
+          y: 30
+        });
+        
+        // Hero animation sequence
+        const heroTL = gsap.timeline();
+        heroTL
+          .to('#heroEyebrow', {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: 'power3.out'
+          })
+          .to('#heroHeadline', {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: 'power3.out'
+          }, '-=0.5')
+          .to('#heroDescription', {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: 'power3.out'
+          }, '-=0.5');
+
+        // ===== SCROLL ANIMATIONS =====
+        // Contact Cards
+        gsap.utils.toArray('.contact-card').forEach((card, i) => {
+          gsap.from(card, {
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 85%',
+              end: 'bottom 15%',
+              toggleActions: 'play none none reverse',
+            },
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            delay: i * 0.2,
+            ease: 'power3.out'
+          });
+        });
+
+        // Form Section
+        gsap.from('.contact-form-section', {
+          scrollTrigger: {
+            trigger: '.contact-form-section',
+            start: 'top 85%',
+            end: 'bottom 15%',
+            toggleActions: 'play none none reverse',
+          },
+          opacity: 0,
+          y: 60,
+          duration: 1.2,
+          ease: 'power3.out'
+        });
+
+        // FAQ Items
+        gsap.utils.toArray('.faq-item').forEach((item, i) => {
+          gsap.from(item, {
+            scrollTrigger: {
+              trigger: item,
+              start: 'top 85%',
+              end: 'bottom 15%',
+              toggleActions: 'play none none reverse',
+            },
+            opacity: 0,
+            x: -30,
+            duration: 0.8,
+            delay: i * 0.15,
+            ease: 'power3.out'
+          });
+        });
+
+        // Section Headers
+        gsap.utils.toArray('.section-header').forEach((header, i) => {
+          gsap.from(header, {
+            scrollTrigger: {
+              trigger: header,
+              start: 'top 90%',
+              end: 'bottom 10%',
+              toggleActions: 'play none none reverse',
+            },
+            opacity: 0,
+            y: 40,
+            duration: 0.8,
+            delay: i * 0.2,
+            ease: 'power3.out'
+          });
+        });
+
+        // CTA Section
+        gsap.from('.creative-cta', {
+          scrollTrigger: {
+            trigger: '.creative-cta',
+            start: 'top 85%',
+            end: 'bottom 15%',
+            toggleActions: 'play none none reverse',
+          },
+          opacity: 0,
+          scale: 0.95,
+          duration: 1,
+          ease: 'power3.out'
+        });
+
+        // Parallax effect on hero video
+        if (!isMobile) {
+          gsap.to(".hero-video", {
+            scrollTrigger: {
+              trigger: ".contact-hero",
+              start: "top top",
+              end: "bottom top",
+              scrub: true
+            },
+            y: "10%",
+            ease: "none"
+          });
+        }
+      }
+
+      // ===== NAVBAR EFFECT =====
+      window.addEventListener('scroll', () => {
+        const navbar = document.getElementById('novasynkNavbar');
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+      });
+
+      // ===== GOOGLE SHEETS FORM SUBMISSION =====
+      const contactForm = document.getElementById('contactForm');
+      if (contactForm) {
+        // Your Google Apps Script Web App URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDXtX9Zl79n3ZwDuCWxUH9DdSVmMZFUXvDMHo1HM-wVsVcip4BekY1XwVl7nxRsiK5/exec';
+        
+        contactForm.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          
+          // Get form data
+          const formData = new FormData(this);
+          const data = Object.fromEntries(formData);
+          
+          // Simple validation
+          if (!data.name || !data.email || !data.service || !data.message) {
+            showAlert('Please fill in all required fields.', 'error');
+            return;
+          }
+          
+          // Email validation
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(data.email)) {
+            showAlert('Please enter a valid email address.', 'error');
+            return;
+          }
+          
+          // Show loading state
+          const submitBtn = contactForm.querySelector('.submit-btn');
+          const originalText = submitBtn.innerHTML;
+          const originalBg = submitBtn.style.background;
+          
+          submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+          submitBtn.disabled = true;
+          
+          try {
+            // Prepare data for submission
+            const submissionData = new URLSearchParams();
+            submissionData.append('timestamp', new Date().toISOString());
+            submissionData.append('name', data.name);
+            submissionData.append('email', data.email);
+            submissionData.append('company', data.company || '');
+            submissionData.append('phone', data.phone || '');
+            submissionData.append('service', data.service);
+            submissionData.append('message', data.message);
+            submissionData.append('sheetId', data.sheetId);
+            
+            // Send to Google Sheets via Google Apps Script
+            const response = await fetch(GOOGLE_SCRIPT_URL, {
+              method: 'POST',
+              mode: 'no-cors', // Required for Google Apps Script
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              body: submissionData
+            });
+            
+            // Note: With 'no-cors' mode, we can't read the response
+            // But the data is still sent to Google Sheets
+            
+            // Show success message
+            submitBtn.innerHTML = '<i class="fas fa-check me-2"></i>Message Sent!';
+            submitBtn.style.background = 'linear-gradient(135deg, #10B981, #059669)';
+            
+            showAlert('Thank you! Your message has been sent. We\'ll get back to you within 24 hours.', 'success');
+            
+            // Reset form after delay
+            setTimeout(() => {
+              contactForm.reset();
+              submitBtn.innerHTML = originalText;
+              submitBtn.disabled = false;
+              submitBtn.style.background = originalBg;
+            }, 3000);
+            
+          } catch (error) {
+            console.error('Form submission error:', error);
+            submitBtn.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i>Error';
+            submitBtn.style.background = 'linear-gradient(135deg, #EF4444, #DC2626)';
+            
+            showAlert('There was an error sending your message. Please try again or contact us directly.', 'error');
+            
+            // Reset button after error
+            setTimeout(() => {
+              submitBtn.innerHTML = originalText;
+              submitBtn.disabled = false;
+              submitBtn.style.background = originalBg;
+            }, 3000);
+          }
+        });
+      }
+
+      // ===== ALERT NOTIFICATION FUNCTION =====
+      function showAlert(message, type = 'info') {
+        // Remove existing alerts
+        const existingAlert = document.querySelector('.form-alert');
+        if (existingAlert) existingAlert.remove();
+        
+        // Create alert element
+        const alert = document.createElement('div');
+        alert.className = `form-alert alert-${type}`;
+        alert.innerHTML = `
+          <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+          <span>${message}</span>
+        `;
+        
+        document.body.appendChild(alert);
+        
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+          if (alert.parentNode) {
+            alert.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => alert.remove(), 300);
+          }
+        }, 5000);
+      }
+
+      // ===== FAQ TOGGLE =====
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+          // Close all other items
+          faqItems.forEach(otherItem => {
+            if (otherItem !== item && otherItem.classList.contains('active')) {
+              otherItem.classList.remove('active');
+            }
+          });
+          
+          // Toggle current item
+          item.classList.toggle('active');
+        });
+      });
+
+      // ===== ENHANCED CHATBOT =====
+      const chatbotToggle = document.getElementById('chatbotToggle');
+      const chatbotSidebar = document.getElementById('chatbotSidebar');
+      const chatbotClose = document.getElementById('chatbotClose');
+      const chatbotInput = document.getElementById('chatbotInput');
+      const chatbotSend = document.getElementById('chatbotSend');
+      const chatbotMessages = document.getElementById('chatbotMessages');
+      const quickQuestions = document.querySelectorAll('.quick-question');
+
+      // Toggle chatbot
+      chatbotToggle.addEventListener('click', () => {
+        chatbotSidebar.classList.toggle('active');
+        if (chatbotSidebar.classList.contains('active')) {
+          chatbotInput.focus();
+        }
+      });
+
+      chatbotClose.addEventListener('click', () => {
+        chatbotSidebar.classList.remove('active');
+      });
+
+      // Message function
+      function addMessage(text, isUser = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `chatbot-message ${isUser ? 'message-user' : 'message-bot'}`;
+        messageDiv.textContent = text;
+        
+        chatbotMessages.appendChild(messageDiv);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        
+        return messageDiv;
+      }
+
+      // Contact specific knowledge base
+      const contactKnowledgeBase = {
+        email: {
+          title: "Our Email Address",
+          content: [
+            "📧 Primary Email: contact@nova-synk.info",
+            "Use this for:",
+            "• Project inquiries and proposals",
+            "• Formal communications",
+            "• Detailed questions about our services",
+            "• Sending documents or files",
+            "",
+            "We typically respond within 24 hours."
+          ]
+        },
+        phone: {
+          title: "Our Phone Number",
+          content: [
+            "📞 Phone: +2 01111 78 5071",
+            "Best for:",
+            "• Immediate assistance",
+            "• Quick questions",
+            "• Voice consultations",
+            "• Urgent matters",
+            "",
+            "Available during business hours (GMT+2)."
+          ]
+        },
+        meeting: {
+          title: "Schedule a Meeting",
+          content: [
+            "To schedule a meeting:",
+            "1. Fill out our contact form above",
+            "2. Mention your preferred time",
+            "3. We'll confirm within 24 hours",
+            "",
+            "We offer:",
+            "• Free 30-minute initial consultation",
+            "• Video calls (Zoom, Google Meet)",
+            "• In-person meetings in Egypt",
+            "• Flexible scheduling"
+          ]
+        },
+        services: {
+          title: "Our Services",
+          content: [
+            "We offer:",
+            "🔍 Market Research & Insights",
+            "📊 Data Analysis & Business Intelligence",
+            "🌐 Web Development",
+            "👁️ Computer Vision",
+            "🤖 AI Chatbots & Automation",
+            "",
+            "Visit our Services page for details."
+          ]
+        },
+        response: {
+          title: "Response Time",
+          content: [
+            "Our typical response times:",
+            "• Email: Within 24 hours",
+            "• Phone: Immediate during business hours",
+            "• Contact Form: Within 24 hours",
+            "• Urgent matters: Please call",
+            "",
+            "Business Hours: 9 AM - 6 PM (GMT+2)"
+          ]
+        },
+        location: {
+          title: "Our Location",
+          content: [
+            "📍 We're based in Egypt",
+            "🌍 We work with clients worldwide",
+            "",
+            "We specialize in:",
+            "• Remote collaboration",
+            "• Digital communication",
+            "• Global project management",
+            "• Cross-cultural understanding"
+          ]
+        }
+      };
+
+      // Smart response system for Contact page
+      function getChatbotResponse(input) {
+        input = input.toLowerCase().trim();
+        
+        if (input.includes('email') || input.includes('mail') || input.includes('@')) {
+          return `${contactKnowledgeBase.email.title}\n\n${contactKnowledgeBase.email.content.join('\n')}`;
+        }
+        
+        if (input.includes('phone') || input.includes('call') || input.includes('number') || input.includes('tel')) {
+          return `${contactKnowledgeBase.phone.title}\n\n${contactKnowledgeBase.phone.content.join('\n')}`;
+        }
+        
+        if (input.includes('meeting') || input.includes('schedule') || input.includes('appointment') || input.includes('consultation')) {
+          return `${contactKnowledgeBase.meeting.title}\n\n${contactKnowledgeBase.meeting.content.join('\n')}`;
+        }
+        
+        if (input.includes('service') || input.includes('offer') || input.includes('what do you') || input.includes('provide')) {
+          return `${contactKnowledgeBase.services.title}\n\n${contactKnowledgeBase.services.content.join('\n')}`;
+        }
+        
+        if (input.includes('response') || input.includes('time') || input.includes('how long') || input.includes('wait')) {
+          return `${contactKnowledgeBase.response.title}\n\n${contactKnowledgeBase.response.content.join('\n')}`;
+        }
+        
+        if (input.includes('location') || input.includes('where') || input.includes('address') || input.includes('based')) {
+          return `${contactKnowledgeBase.location.title}\n\n${contactKnowledgeBase.location.content.join('\n')}`;
+        }
+        
+        if (input.includes('hello') || input.includes('hi') || input.includes('hey')) {
+          return "Hello! I'm your NovaSynk Contact Assistant. I can help you with:\n\n• Contact information (email, phone)\n• Scheduling meetings\n• Service inquiries\n• Response times\n• Location information\n\nWhat would you like to know?";
+        }
+        
+        if (input.includes('thank')) {
+          return "You're welcome! Is there anything else I can help you with regarding NovaSynk?";
+        }
+        
+        return "I'm here to help you connect with NovaSynk! You can ask about:\n\n• Email address\n• Phone number\n• Scheduling a meeting\n• Our services\n• Response times\n• Our location\n\nWhat information do you need?";
+      }
+
+      // Show typing indicator
+      function showTypingIndicator() {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'chatbot-message message-bot';
+        typingDiv.innerHTML = '<div class="typing-indicator"><span></span><span></span><span></span></div>';
+        chatbotMessages.appendChild(typingDiv);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        
+        return typingDiv;
+      }
+
+      // Send message
+      function sendMessage() {
+        const message = chatbotInput.value.trim();
+        if (message) {
+          addMessage(message, true);
+          chatbotInput.value = '';
+          
+          const typingIndicator = showTypingIndicator();
+          
+          setTimeout(() => {
+            typingIndicator.remove();
+            const response = getChatbotResponse(message);
+            addMessage(response);
+            chatbotInput.focus();
+          }, 1500 + Math.random() * 500);
+        }
+      }
+
+      // Quick questions
+      quickQuestions.forEach(button => {
+        button.addEventListener('click', () => {
+          const question = button.dataset.question;
+          addMessage(question, true);
+          
+          const typingIndicator = showTypingIndicator();
+          
+          setTimeout(() => {
+            typingIndicator.remove();
+            const response = getChatbotResponse(question);
+            addMessage(response);
+            chatbotInput.focus();
+          }, 1500 + Math.random() * 500);
+        });
+      });
+
+      // Event listeners
+      chatbotSend.addEventListener('click', sendMessage);
+      chatbotInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+      });
+
+      // Handle page load
+      window.addEventListener('load', () => {
+        console.log('Contact page fully loaded');
+        
+        // Refresh ScrollTrigger after images load
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+          console.log('ScrollTrigger refreshed');
+        }, 500);
+      });
+    });
+  </script>
+</body>
+</html>
